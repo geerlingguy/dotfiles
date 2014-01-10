@@ -1,0 +1,6 @@
+# Allow up/down autocompletion of commands from bash history.
+# From: coderwall.com/p/oqtj8w
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+set show-all-if-ambiguous on
+set completion-ignore-case on
