@@ -36,3 +36,6 @@ alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
+
+# Disable cowsay in Ansible.
+export ANSIBLE_NOCOWS=1
