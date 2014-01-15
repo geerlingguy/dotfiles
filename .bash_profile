@@ -31,6 +31,8 @@ alias gs='git status'
 alias gc='git commit'
 alias gcam='git commit -am'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+alias gsd='git svn dcommit'
+alias gsfr='git svn fetch && git svn rebase'
 
 # Turn on Git autocomplete.
 if [ -f ~/.git-completion.bash ]; then
@@ -39,3 +41,7 @@ fi
 
 # Disable cowsay in Ansible.
 export ANSIBLE_NOCOWS=1
+
+# Ansible aliases.
+alias an='ansible'
+alias anplay='ansible-playbook'
