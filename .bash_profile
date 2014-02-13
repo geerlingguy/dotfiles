@@ -18,8 +18,11 @@ export PATH=/usr/local/bin:/Users/jgeerling/bin:/usr/local/sbin:/usr/local/git/b
 # Flush DNS cache (See: http://support.apple.com/kb/ht5343).
 alias flush-dns='sudo killall -HUP mDNSResponder'
 
-# Include alias files for easier ssh and remote connections (private).
-source ~/.bash_aliases
+# Include alias file (if present) containing aliases for ssh, etc.
+if [ -f ~/.bash_aliases ]
+then
+  source ~/.bash_aliases
+fi
 
 # Route local traffic over ethernet when using certain WiFi networks w/o proxy.
 function net_route() {
