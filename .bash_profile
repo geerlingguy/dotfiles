@@ -44,4 +44,4 @@ export ANSIBLE_NOCOWS=1
 
 # Ansible aliases.
 alias an='ansible'
-alias anplay='ansible-playbook'
+alias ap='ansible-playbook'
