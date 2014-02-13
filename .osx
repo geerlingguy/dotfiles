@@ -6,6 +6,8 @@
 # 10.9.2), and sets up preferences and configurations for all the built-in
 # services and apps. Third-party app config should be done elsewhere.
 #
+# @see: http://secrets.blacktree.com/?showapp=com.apple.finder
+#
 # @author Jeff Geerling, 2014
 # Based on .osx file from https://github.com/mathiasbynens/dotfiles.
 
@@ -49,6 +51,9 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
 # Disable smart dashes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
+# Set background to dark-grey color
+sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '/Library/Desktop Pictures/Solid Colors/Solid Gray Dark.png'"
 
 ###############################################################################
 # SSD-specific tweaks                                                         #
