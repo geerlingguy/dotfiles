@@ -26,7 +26,7 @@ fi
 
 # Route local traffic over ethernet when using certain WiFi networks w/o proxy.
 function net_route() {
-  sudo route add -net 10.0.0.0/8 -interface en3
+  sudo route add -net 10.0.0.0/8 -interface en0
 }
 
 # Git aliases.
