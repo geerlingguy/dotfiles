@@ -25,8 +25,13 @@ then
 fi
 
 # Route local traffic over ethernet when using certain WiFi networks w/o proxy.
-function net_route() {
+function route_add() {
   sudo route add -net 10.0.0.0/8 -interface en0
+}
+
+# Delete the route added above.
+function route_delete() {
+  sudo route delete 10.0.0.0
 }
 
 # Git aliases.
