@@ -226,10 +226,10 @@ chflags nohidden ~/Library
 # Expand the following File Info panes:
 # “General”, “Open with”, and “Sharing & Permissions”
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
-	General -bool true \
-	OpenWith -bool true \
+  General -bool true \
+  OpenWith -bool true \
   Preview -bool false \
-	Privileges -bool true
+  Privileges -bool true
 
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
@@ -411,6 +411,6 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 ###############################################################################
 
 for app in "cfprefsd" "Dock" "Finder" "Mail" "SystemUIServer" "Terminal"; do
-	killall "${app}" > /dev/null 2>&1
+  killall "${app}" > /dev/null 2>&1
 done
 echo "Please log out and log back in to make all settings take effect."
