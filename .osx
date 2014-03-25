@@ -25,6 +25,9 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # You can check current values with `pmset -g`.
 sudo pmset -a standbydelay 86400
 
+# Disable system sleep (helpful if you're usually plugged into mains power).
+sudo pmset -a sleep 0
+
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 
