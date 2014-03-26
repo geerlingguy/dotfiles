@@ -4,4 +4,6 @@
 "\e[B": history-search-forward
 set show-all-if-ambiguous on
 set completion-ignore-case on
-set editing-mode vi
+
+# Uncomment to enable vi-like command line editing mode.
+# set editing-mode vi
