@@ -34,6 +34,11 @@ function route_delete() {
   sudo route delete 10.0.0.0
 }
 
+# Route IRC traffic through one of my servers.
+function irc_proxy() {
+  ssh -vD 6667 geerlingguy@atl1.servercheck.in
+}
+
 # Git aliases.
 alias gs='git status'
 alias gc='git commit'
