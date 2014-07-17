@@ -35,8 +35,15 @@ function route_delete() {
 }
 
 # Route IRC traffic through one of my servers.
+# Use SOCKS5 settings 'localhost' and 6667 for server/port.
 function irc_proxy() {
   ssh -vD 6667 geerlingguy@atl1.servercheck.in
+}
+
+# Syntax-highlight code for copying and pasting.
+# Requires highlight (`brew install highlight`).
+function pretty() {
+  pbpaste | highlight --syntax=$1 -O rtf | pbcopy
 }
 
 # Git aliases.
