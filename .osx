@@ -11,11 +11,15 @@
 # @author Jeff Geerling, 2014
 # Based on .osx file from https://github.com/mathiasbynens/dotfiles.
 
-# Get admin password for sudo
-sudo -v
-
-# Update existing `sudo` timestamp until `.osx` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+# Warn that some commands will not be run if the script is not run as root.
+if [[ $EUID -ne 0 ]]; then
+  RUN_AS_ROOT=false
+  printf "Certain commands will not be run without sudo privileges. To run as root, run the same command prepended with 'sudo', for example: $ sudo $0\n\n" | fold -s -w 80
+else
+  RUN_AS_ROOT=true
+  # Update existing `sudo` timestamp until `.osx` has finished
+  while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+fi
 
 ###############################################################################
 # General UI/UX                                                               #
@@ -23,10 +27,14 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Set standby delay to 24 hours (default is 1 hour)
 # You can check current values with `pmset -g`.
-sudo pmset -a standbydelay 86400
+if [[ "$RUN_AS_ROOT" = true ]]; then
+  sudo pmset -a standbydelay 86400
+fi
 
 # Disable system sleep (helpful if you're usually plugged into mains power).
-sudo pmset -a sleep 0
+if [[ "$RUN_AS_ROOT" = true ]]; then
+  sudo pmset -a sleep 0
+fi
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
@@ -42,10 +50,14 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
 # Reveal IP address, hostname, OS version, etc. when clicking the clock
 # in the login window
-sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+if [[ "$RUN_AS_ROOT" = true ]]; then
+  sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+fi
 
 # Restart automatically if the computer freezes
-systemsetup -setrestartfreeze on
+if [[ "$RUN_AS_ROOT" = true ]]; then
+  systemsetup -setrestartfreeze on
+fi
 
 # Disable Notification Center and remove the menu bar icon
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
@@ -63,21 +75,23 @@ sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set v
 # SSD-specific tweaks                                                         #
 ###############################################################################
 
-# Disable local Time Machine snapshots
-sudo tmutil disablelocal
+if [[ "$RUN_AS_ROOT" = true ]]; then
+  # Disable local Time Machine snapshots
+  sudo tmutil disablelocal
 
-# Disable hibernation (speeds up entering sleep mode)
-sudo pmset -a hibernatemode 0
+  # Disable hibernation (speeds up entering sleep mode)
+  sudo pmset -a hibernatemode 0
 
-# Remove the sleep image file to save disk space
-sudo rm /Private/var/vm/sleepimage
-# Create a zero-byte file instead...
-sudo touch /Private/var/vm/sleepimage
-# ...and make sure it can’t be rewritten
-sudo chflags uchg /Private/var/vm/sleepimage
+  # Remove the sleep image file to save disk space
+  sudo rm /Private/var/vm/sleepimage
+  # Create a zero-byte file instead...
+  sudo touch /Private/var/vm/sleepimage
+  # ...and make sure it can’t be rewritten
+  sudo chflags uchg /Private/var/vm/sleepimage
 
-# Disable the sudden motion sensor as it’s not useful for SSDs
-sudo pmset -a sms 0
+  # Disable the sudden motion sensor as it’s not useful for SSDs
+  sudo pmset -a sms 0
+fi
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
@@ -133,7 +147,9 @@ defaults write com.apple.screencapture disable-shadow -bool true
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
 # Enable HiDPI display modes (requires restart)
-# sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+# if [[ "$RUN_AS_ROOT" = true ]]; then
+#   sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+# fi
 
 ###############################################################################
 # Finder                                                                      #
@@ -217,7 +233,9 @@ defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 # defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Enable the MacBook Air SuperDrive on any Mac
-# sudo nvram boot-args="mbasd=1"
+# if [[ "$RUN_AS_ROOT" = true ]]; then
+#   sudo nvram boot-args="mbasd=1"
+# fi
 
 # Show the ~/Library folder
 chflags nohidden ~/Library
@@ -278,7 +296,9 @@ defaults write com.apple.dock showhidden -bool true
 defaults write com.apple.universalaccess reduceTransparency -bool true
 
 # Add iOS Simulator to Applications folder.
-sudo ln -sf /Applications/Xcode.app/Contents/Applications/iPhone\ Simulator.app /Applications/iOS\ Simulator.app
+if [[ "$RUN_AS_ROOT" = true ]]; then
+  sudo ln -sf /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app
+fi
 
 # Hot corners
 # Possible values:
@@ -355,12 +375,15 @@ defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreade
 # Spotlight                                                                   #
 ###############################################################################
 
-# Disable Spotlight indexing for any volume that gets mounted and has not yet
-# been indexed before.
-# Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
-# Restart spotlight
-killall mds > /dev/null 2>&1
+if [[ "$RUN_AS_ROOT" = true ]]; then
+  # Disable Spotlight indexing for any volume that gets mounted and has not yet
+  # been indexed before.
+  # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
+  sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+
+  # Restart spotlight
+  killall mds > /dev/null 2>&1
+fi
 
 ###############################################################################
 # Terminal                                                                    #
@@ -419,4 +442,5 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 for app in "cfprefsd" "Dock" "Finder" "Mail" "SystemUIServer" "Terminal"; do
   killall "${app}" > /dev/null 2>&1
 done
-echo "Please log out and log back in to make all settings take effect."
+
+printf "Please log out and log back in to make all settings take effect.\n"
