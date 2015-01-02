@@ -3,13 +3,15 @@
 # Mac OS X configuration
 #
 # This configuration applies to the latest version of Mac OS X (currently
-# 10.9.2), and sets up preferences and configurations for all the built-in
+# 10.10.1), and sets up preferences and configurations for all the built-in
 # services and apps. Third-party app config should be done elsewhere.
+#
+# Options:
+#   --no-restart: Don't restart any apps or services after running the script.
 #
 # @see: http://secrets.blacktree.com/?showapp=com.apple.finder
 #
 # @author Jeff Geerling, 2014
-# Based on .osx file from https://github.com/mathiasbynens/dotfiles.
 
 # Warn that some commands will not be run if the script is not run as root.
 if [[ $EUID -ne 0 ]]; then
@@ -297,7 +299,7 @@ defaults write com.apple.universalaccess reduceTransparency -bool true
 
 # Add iOS Simulator to Applications folder.
 if [[ "$RUN_AS_ROOT" = true ]]; then
-  sudo ln -sf /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app
+  sudo ln -sf /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app /Applications/iOS\ Simulator.app
 fi
 
 # Hot corners
@@ -439,8 +441,11 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 # Kill/restart affected applications                                          #
 ###############################################################################
 
-for app in "cfprefsd" "Dock" "Finder" "Mail" "SystemUIServer" "Terminal"; do
-  killall "${app}" > /dev/null 2>&1
-done
+# Restart affected applications if `--no-restart` flag is not present.
+if [[ ! ($* == *--no-restart*) ]]; then
+  for app in "cfprefsd" "Dock" "Finder" "Mail" "SystemUIServer" "Terminal"; do
+    killall "${app}" > /dev/null 2>&1
+  done
+fi
 
 printf "Please log out and log back in to make all settings take effect.\n"
