@@ -1,0 +1,29 @@
+[user]
+  name = Jeff Geerling
+  email = geerlingguy@mac.com
+[core]
+  editor = vi
+  excludesfile = ~/.gitignore
+[color]
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+[web]
+  browser = google-chrome
+[credential]
+  helper = osxkeychain
+[push]
+  default = simple
+[merge]
+  tool = kdiff3
+[difftool]
+  prompt = false
+[alias]
+  c = commit
+  ca = commit -a
+  cm = commit -m
+  cam = commit -am
+  d = diff
+  dc = diff --cached
+  l = log --oneline --graph --decorate
