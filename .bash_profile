@@ -60,6 +60,9 @@ if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
 
+# Vagrant configuration.
+export VAGRANT_DEFAULT_PROVIDER='virtualbox'
+
 # Disable cowsay in Ansible.
 export ANSIBLE_NOCOWS=1
 
