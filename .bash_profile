@@ -56,12 +56,12 @@ alias gsd='git svn dcommit'
 alias gsfr='git svn fetch && git svn rebase'
 
 # Turn on Git autocomplete.
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+  . `brew --prefix`/etc/bash_completion
 fi
 
 # Vagrant configuration.
-export VAGRANT_DEFAULT_PROVIDER='virtualbox'
+# export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 
 # Disable cowsay in Ansible.
 export ANSIBLE_NOCOWS=1
