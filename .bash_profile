@@ -24,6 +24,12 @@ then
   source ~/.bash_aliases
 fi
 
+# Include bashrc file (if present).
+if [ -f ~/.bashrc ]
+then
+  source ~/.bashrc
+fi
+
 # Route local traffic over ethernet when using certain WiFi networks w/o proxy.
 function route_add() {
   sudo route add -net 10.0.0.0/8 -interface en0
