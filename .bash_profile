@@ -76,6 +76,16 @@ export ANSIBLE_NOCOWS=1
 alias an='ansible'
 alias ap='ansible-playbook'
 
+# Delete a given line number in the known_hosts file.
+knownrm() {
+  re='^[0-9]+$'
+  if ! [[ $1 =~ $re ]] ; then
+    echo "error: line number missing" >&2;
+  else
+    sed -i '' "$1d" ~/.ssh/known_hosts
+  fi
+}
+
 # Ask for confirmation when 'prod' is in a command string.
 prod_command_trap () {
   if [[ $BASH_COMMAND == *prod* ]]
