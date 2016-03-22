@@ -66,6 +66,9 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
   . `brew --prefix`/etc/bash_completion
 fi
 
+# Use brew-installed PHP binaries.
+export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
+
 # Vagrant configuration.
 # export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 
