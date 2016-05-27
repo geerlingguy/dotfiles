@@ -13,7 +13,7 @@ export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
 # Custom $PATH with extra locations.
-export PATH=/usr/local/bin:/Users/jgeerling/bin:/usr/local/sbin:/usr/local/git/bin:/Developer/Eclipse/android-sdk-macosx/platform-tools:/Developer/Eclipse/android-sdk-macosx/tools:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$PATH
 
 # Flush DNS cache (See: http://support.apple.com/kb/ht5343).
 alias flush-dns='sudo killall -HUP mDNSResponder'
@@ -74,10 +74,6 @@ export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
 
 # Disable cowsay in Ansible.
 export ANSIBLE_NOCOWS=1
-
-# Ansible aliases.
-alias an='ansible'
-alias ap='ansible-playbook'
 
 # Delete a given line number in the known_hosts file.
 knownrm() {
