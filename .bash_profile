@@ -62,12 +62,13 @@ alias gsd='git svn dcommit'
 alias gsfr='git svn fetch && git svn rebase'
 
 # Turn on Git autocomplete.
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-  . `brew --prefix`/etc/bash_completion
+brew_prefix=`brew --prefix`
+if [ -f $brew_prefix/etc/bash_completion ]; then
+  . $brew_prefix/etc/bash_completion
 fi
 
 # Use brew-installed PHP binaries.
-export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
+export PATH="$brew_prefix/opt/php56/bin:$PATH"
 
 # Vagrant configuration.
 # export VAGRANT_DEFAULT_PROVIDER='virtualbox'
