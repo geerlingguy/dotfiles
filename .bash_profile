@@ -70,6 +70,10 @@ fi
 # Use brew-installed PHP binaries.
 export PATH="$brew_prefix/opt/php56/bin:$PATH"
 
+# Use nvm.
+export NVM_DIR="$HOME/.nvm"
+. "$brew_prefix/opt/nvm/nvm.sh"
+
 # Vagrant configuration.
 # export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 
