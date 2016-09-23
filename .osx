@@ -61,8 +61,10 @@ if [[ "$RUN_AS_ROOT" = true ]]; then
   systemsetup -setrestartfreeze on
 fi
 
-# Disable Notification Center and remove the menu bar icon
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
+# Disable Notification Center
+# launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
+# To re-enable, run:
+# launchctl load -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist && open /System/Library/CoreServices/NotificationCenter.app/
 
 # Disable game center. Who uses that thing?
 launchctl unload /System/Library/LaunchAgents/com.apple.gamed.plist 2> /dev/null
@@ -204,11 +206,6 @@ defaults write NSGlobalDomain com.apple.springing.delay -float 0.1
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
-# Disable disk image verification
-defaults write com.apple.frameworks.diskimages skip-verify -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
-
 # Automatically open a new Finder window when a volume is mounted
 defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
 defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
@@ -233,14 +230,6 @@ defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
 # Empty Trash securely by default
 # defaults write com.apple.finder EmptyTrashSecurely -bool true
-
-# Enable AirDrop over Ethernet and on unsupported Macs running Lion
-# defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
-
-# Enable the MacBook Air SuperDrive on any Mac
-# if [[ "$RUN_AS_ROOT" = true ]]; then
-#   sudo nvram boot-args="mbasd=1"
-# fi
 
 # Show the ~/Library folder
 chflags nohidden ~/Library
@@ -277,19 +266,10 @@ defaults write com.apple.dock expose-animation-duration -float 0.15
 # (i.e. switch to old Exposé behavior)
 # defaults write com.apple.dock expose-group-by-app -bool false
 
-# Disable Dashboard
-defaults write com.apple.dashboard mcx-disabled -bool true
-
-# Don’t show Dashboard as a Space
-defaults write com.apple.dock dashboard-in-overlay -bool true
-
 # Remove the auto-hiding Dock delay
 # defaults write com.apple.dock autohide-delay -float 0
 # Remove the animation when hiding/showing the Dock
 # defaults write com.apple.dock autohide-time-modifier -float 0
-
-# Enable the 2D Dock (doesn't work in Mavericks :()
-#defaults write com.apple.dock no-glass -bool true
 
 # Automatically hide and show the Dock
 # defaults write com.apple.dock autohide -bool true
@@ -302,7 +282,7 @@ defaults write com.apple.universalaccess reduceTransparency -bool true
 
 # Add iOS Simulator to Applications folder.
 if [[ "$RUN_AS_ROOT" = true ]]; then
-  sudo ln -sf /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app /Applications/iOS\ Simulator.app
+  sudo ln -sf /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app /Applications/Simulator.app
 fi
 
 # Hot corners
@@ -365,7 +345,7 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 # Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app
 # defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" -string "@\\U21a9"
 
-# Display emails in threaded mode, sorted by date (oldest at the top)
+# Display emails in threaded mode
 defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
 # defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes"
 # defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date"
@@ -397,12 +377,7 @@ fi
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
 
-# TODO - Use my own theme!
-# Use a modified version of the Pro theme by default in Terminal.app
-# open "${HOME}/init/Mathias.terminal"
-# sleep 1 # Wait a bit to make sure the theme is loaded
-# defaults write com.apple.terminal "Default Window Settings" -string "Mathias"
-# defaults write com.apple.terminal "Startup Window Settings" -string "Mathias"
+# For Terminal theme, see: https://github.com/geerlingguy/mac-dev-playbook
 
 ###############################################################################
 # Activity Monitor                                                            #
