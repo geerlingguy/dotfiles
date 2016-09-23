@@ -4,6 +4,7 @@
 [core]
   editor = vi
   excludesfile = ~/.gitignore
+  autocrlf = input
 [color]
   branch = auto
   diff = auto
