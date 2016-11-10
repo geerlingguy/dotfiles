@@ -6,7 +6,7 @@
 #
 
 # Nicer prompt.
-export PS1=" \D{%I:%M %p}:\w $ "
+export PS1="\e[0;32m\] \e[1m\]\t \e[0;2m\]\w \e[0m\]$ "
 
 # Use colors.
 export CLICOLOR=1
