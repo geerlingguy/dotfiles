@@ -14,7 +14,7 @@ set scrolloff=5         " show at least 5 lines above/below
 filetype on             " enable filetype detection
 filetype indent on      " enable filetype-specific indenting
 filetype plugin on      " enable filetype-specific plugins
-colorscheme cobalt      " requires cobalt.vim to be in ~/.vim/colors
+" colorscheme cobalt      " requires cobalt.vim to be in ~/.vim/colors
 
 " column-width visual indication
 let &colorcolumn=join(range(81,999),",")
@@ -37,7 +37,7 @@ set showmatch           " show matching bracket
 
 " other
 set guioptions=aAace    " don't show scrollbar in MacVim
-call pathogen#infect()  " use pathogen
+" call pathogen#infect()  " use pathogen
 
 " clipboard
 set clipboard=unnamed   " allow yy, etc. to interact with OS X clipboard
