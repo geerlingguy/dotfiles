@@ -90,6 +90,11 @@ export PATH="$brew_prefix/opt/php56/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 . "$brew_prefix/opt/nvm/nvm.sh"
 
+# Use rbenv.
+if [ -f /usr/local/bin/rbenv ]; then
+  eval "$(rbenv init -)"
+fi
+
 # Vagrant configuration.
 # export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 
