@@ -101,6 +101,12 @@ fi
 # Disable cowsay in Ansible.
 export ANSIBLE_NOCOWS=1
 
+# Super useful Docker container oneshots.
+# Usage: dockrun, or dockrun [centos7|fedora24|debian8|ubuntu1404|etc.]
+dockrun() {
+  docker run -it geerlingguy/docker-"${1:-ubuntu1604}"-ansible /bin/bash
+}
+
 # Delete a given line number in the known_hosts file.
 knownrm() {
   re='^[0-9]+$'
