@@ -87,8 +87,8 @@ fi
 export PATH="$brew_prefix/opt/php56/bin:$PATH"
 
 # Use nvm.
-export NVM_DIR="$HOME/.nvm"
-. "$brew_prefix/opt/nvm/nvm.sh"
+#export NVM_DIR="$HOME/.nvm"
+#. "$brew_prefix/opt/nvm/nvm.sh"
 
 # Use rbenv.
 if [ -f /usr/local/bin/rbenv ]; then
@@ -105,6 +105,17 @@ export ANSIBLE_NOCOWS=1
 # Usage: dockrun, or dockrun [centos7|fedora24|debian8|ubuntu1404|etc.]
 dockrun() {
   docker run -it geerlingguy/docker-"${1:-ubuntu1604}"-ansible /bin/bash
+}
+
+# Enter a running Docker container.
+function denter() {
+  if [[ ! "$1" ]] ; then
+      echo "You must supply a container ID or name."
+      return 0
+  fi
+
+  docker exec -it $1 bash
+  return 0
 }
 
 # Delete a given line number in the known_hosts file.
@@ -145,6 +156,7 @@ function blt() {
     $GIT_ROOT/vendor/bin/blt "$@"
   else
     echo "You must run this command from within a BLT-generated project repository."
-    exit 1
+    return 1
   fi
 }
+
