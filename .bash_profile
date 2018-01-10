@@ -83,6 +83,11 @@ if [ -f $brew_prefix/etc/bash_completion ]; then
   . $brew_prefix/etc/bash_completion
 fi
 
+# Turn on bash bash-completion@2
+if [ -f $brew_prefix/share/bash-completion/bash_completion ]; then
+    . $brew_prefix/share/bash-completion/bash_completion
+fi
+
 # Use brew-installed PHP binaries.
 export PATH="$brew_prefix/opt/php56/bin:$PATH"
 

@@ -1,4 +1,5 @@
 *.DS_Store
 *.LSOverride
 Thumbs.db
+/.idea/
 .bundle
