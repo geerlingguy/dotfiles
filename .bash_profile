@@ -78,17 +78,18 @@ function gsync() {
 }
 
 # Turn on Git autocomplete.
-brew_prefix=`brew --prefix`
+# brew_prefix=`brew --prefix`
+brew_prefix='/usr/local'
 if [ -f $brew_prefix/etc/bash_completion ]; then
   . $brew_prefix/etc/bash_completion
 fi
 
 # Use brew-installed PHP binaries.
-export PATH="$brew_prefix/opt/php56/bin:$PATH"
+export PATH="$brew_prefix/opt/php70/bin:$PATH"
 
 # Use nvm.
-#export NVM_DIR="$HOME/.nvm"
-#. "$brew_prefix/opt/nvm/nvm.sh"
+# export NVM_DIR="$HOME/.nvm"
+# . "$brew_prefix/opt/nvm/nvm.sh"
 
 # Use rbenv.
 if [ -f /usr/local/bin/rbenv ]; then
@@ -114,6 +115,9 @@ function denter() {
   docker exec -it $1 bash
   return 0
 }
+
+# Docker image visualization (usage: `dockviz images -t`).
+alias dockviz="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 
 # Delete a given line number in the known_hosts file.
 knownrm() {
