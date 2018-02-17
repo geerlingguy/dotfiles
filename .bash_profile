@@ -27,22 +27,6 @@ then
   source ~/.bashrc
 fi
 
-# Route local traffic over ethernet when using certain WiFi networks w/o proxy.
-function route_add() {
-  sudo route add -net 10.0.0.0/8 -interface en0
-}
-
-# Delete the route added above.
-function route_delete() {
-  sudo route delete 10.0.0.0
-}
-
-# Route IRC traffic through one of my servers.
-# Use SOCKS5 settings 'localhost' and 6667 for server/port.
-function irc_proxy() {
-  ssh -vD 6667 geerlingguy@atl1.servercheck.in
-}
-
 # Syntax-highlight code for copying and pasting.
 # Requires highlight (`brew install highlight`).
 function pretty() {
@@ -55,8 +39,6 @@ alias gc='git commit'
 alias gp='git pull --rebase'
 alias gcam='git commit -am'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
-alias gsd='git svn dcommit'
-alias gsfr='git svn fetch && git svn rebase'
 
 # Git upstream branch syncer.
 # Usage: gsync master (checks out master, pull upstream, push origin).
@@ -77,6 +59,9 @@ function gsync() {
   git push origin "$1"
 }
 
+# Tell homebrew to not autoupdate every single time I run it (just once a week).
+export HOMEBREW_AUTO_UPDATE_SECS=604800
+
 # Turn on Git autocomplete.
 # brew_prefix=`brew --prefix`
 brew_prefix='/usr/local'
@@ -92,15 +77,15 @@ export PATH="$brew_prefix/opt/php70/bin:$PATH"
 # . "$brew_prefix/opt/nvm/nvm.sh"
 
 # Use rbenv.
-if [ -f /usr/local/bin/rbenv ]; then
-  eval "$(rbenv init -)"
-fi
+# if [ -f /usr/local/bin/rbenv ]; then
+#   eval "$(rbenv init -)"
+# fi
 
 # Python settings.
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages"
 
 # Super useful Docker container oneshots.
-# Usage: dockrun, or dockrun [centos7|fedora24|debian8|ubuntu1404|etc.]
+# Usage: dockrun, or dockrun [centos7|fedora27|debian9|debian8|ubuntu1404|etc.]
 dockrun() {
   docker run -it geerlingguy/docker-"${1:-ubuntu1604}"-ansible /bin/bash
 }
@@ -160,4 +145,3 @@ function blt() {
     return 1
   fi
 }
-
