@@ -75,7 +75,8 @@ if [ -x "$(command -v kubectl)" ]; then
 fi
 
 # Use brew-installed PHP binaries.
-export PATH="$brew_prefix/opt/php70/bin:$PATH"
+export PATH="/usr/local/opt/php@7.2/bin:$PATH"
+export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
 
 # Use nvm.
 # export NVM_DIR="$HOME/.nvm"
@@ -150,5 +151,3 @@ function blt() {
     return 1
   fi
 }
-export PATH="/usr/local/opt/php@7.1/bin:$PATH"
-export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
