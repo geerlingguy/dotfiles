@@ -6,7 +6,7 @@
 #
 
 # Nicer prompt.
-export PS1="\[\e[0;32m\]\]\[\] \[\e[1;32m\]\]\t \[\e[0;2m\]\]\w \[\e[0m\]\]\[$\] "
+export PS1="\[\e[0;32m\] \[\e[1;32m\]\t \[\e[0;2m\]\w \[\e[0m\]\$ "
 
 # Use colors.
 export CLICOLOR=1
@@ -138,16 +138,26 @@ shopt -s extdebug
 trap prod_command_trap DEBUG
 
 function blt() {
-  if [ "`git rev-parse --show-cdup 2> /dev/null`" != "" ]; then
-    GIT_ROOT=$(git rev-parse --show-cdup)
+  if [[ ! -z ${AH_SITE_ENVIRONMENT} ]]; then
+    PROJECT_ROOT="/var/www/html/${AH_SITE_GROUP}.${AH_SITE_ENVIRONMENT}"
+  elif [ "`git rev-parse --show-cdup 2> /dev/null`" != "" ]; then
+    PROJECT_ROOT=$(git rev-parse --show-cdup)
   else
-    GIT_ROOT="."
+    PROJECT_ROOT="."
   fi
 
-  if [ -f "$GIT_ROOT/vendor/bin/blt" ]; then
-    $GIT_ROOT/vendor/bin/blt "$@"
+  if [ -f "$PROJECT_ROOT/vendor/bin/blt" ]; then
+    $PROJECT_ROOT/vendor/bin/blt "$@"
+
+  # Check for local BLT.
+  elif [ -f "./vendor/bin/blt" ]; then
+    ./vendor/bin/blt "$@"
+
   else
-    echo "You must run this command from within a BLT-generated project repository."
+    echo "You must run this command from within a BLT-generated project."
     return 1
   fi
 }
+
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
