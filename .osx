@@ -250,6 +250,9 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
 
+# Customize the Dock position to left (other options: right, bottom)
+defaults write com.apple.dock orientation -string left
+
 # Set the icon size of Dock items
 defaults write com.apple.dock tilesize -int 30
 
