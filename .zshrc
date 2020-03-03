@@ -1,8 +1,7 @@
 #
-# .bash_profile
+# .zshrc
 #
 # @author Jeff Geerling
-# @see .inputrc
 #
 
 # Colors.
@@ -10,20 +9,31 @@ unset LSCOLORS
 export CLICOLOR=1
 export CLICOLOR_FORCE=1
 
+# Don't require escaping globbing characters in zsh.
+unsetopt nomatch
+
 # Nicer prompt.
-export PS1="%F{green} %*%F %3~ %F{white}$ "
+export PS1=$'\n'"%F{green} %*%F %3~ %F{white}$ "
 
 # Enable plugins.
-plugins=(git brew history kubectl)
+plugins=(git brew history kubectl history-substring-search)
 
 # Custom $PATH with extra locations.
-export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/go/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$PATH
+
+# Bash-style time output.
+export TIMEFMT=$'\nreal\t%*E\nuser\t%*U\nsys\t%*S'
 
 # Include alias file (if present) containing aliases for ssh, etc.
 if [ -f ~/.aliases ]
 then
   source ~/.aliases
 fi
+
+# Allow history search via up/down keys.
+source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
 
 # Git aliases.
 alias gs='git status'
@@ -59,9 +69,6 @@ function gsync() {
 # Tell homebrew to not autoupdate every single time I run it (just once a week).
 export HOMEBREW_AUTO_UPDATE_SECS=604800
 
-# Python settings.
-export PYTHONPATH="/usr/local/lib/python2.7/site-packages"
-
 # Super useful Docker container oneshots.
 # Usage: dockrun, or dockrun [centos7|fedora27|debian9|debian8|ubuntu1404|etc.]
 dockrun() {
@@ -88,6 +95,9 @@ knownrm() {
    sed -i '' "$1d" ~/.ssh/known_hosts
  fi
 }
+
+# Allow Composer to use almost as much RAM as Chrome.
+export COMPOSER_MEMORY_LIMIT=-1
 
 # Ask for confirmation when 'prod' is in a command string.
 #prod_command_trap () {
