@@ -10,6 +10,8 @@
   diff = auto
   interactive = auto
   status = auto
+[init]
+  defaultBranch = master
 [web]
   browser = google-chrome
 [credential]
