@@ -2,9 +2,9 @@
 
 # Mac OS X configuration
 #
-# This configuration applies to the latest version of Mac OS X (currently
-# 11.3.1), and sets up preferences and configurations for all the built-in
-# services and apps. Third-party app config should be done elsewhere.
+# This configuration applies to the latest version of macOS (currently 11.3),
+# and sets up preferences and configurations for all the built-in services and
+# apps. Third-party app config should be done elsewhere.
 #
 # Options:
 #   --no-restart: Don't restart any apps or services after running the script.
@@ -66,7 +66,11 @@ osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/S
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
 
-# Trackpad: map bottom right corner to right-click (requires restart!).
+# Trackpad: Haptic feedback (light, silent clicking)
+defaults write com.apple.AppleMultitouchTrackpad FirstClickThreshold -int 0
+defaults write com.apple.AppleMultitouchTrackpad ActuationStrength -int 0
+
+# Trackpad: map bottom right corner to right-click (requires restart!)
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 2
