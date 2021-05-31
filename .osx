@@ -9,6 +9,14 @@
 # Options:
 #   --no-restart: Don't restart any apps or services after running the script.
 #
+# If you want to figure out what default needs changing, do the following:
+#
+#   1. `cd /tmp`
+#   2. Store current defaults in file: `defaults read > before`
+#   3. Make a change to your system.
+#   4. Store new defaults in file: `defaults read > after`
+#   5. Diff the files: `diff before after`
+#
 # @see: http://secrets.blacktree.com/?showapp=com.apple.finder
 # @see: https://github.com/herrbischoff/awesome-macos-command-line
 #
@@ -58,17 +66,11 @@ osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/S
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
 
-# Trackpad: map bottom right corner to right-click
-# TODO: This doesn't seem to work anymore.
-#defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-#defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-#defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-#defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
-
-# Use scroll gesture with the Ctrl (^) modifier key to zoom
-# TODO: This doesn't seem to work anymore.
-#defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-#defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+# Trackpad: map bottom right corner to right-click (requires restart!).
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 2
+defaults write NSGlobalDomain ContextMenuGesture -int 1
 
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
