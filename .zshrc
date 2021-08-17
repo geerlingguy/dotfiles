@@ -2,7 +2,7 @@
 # .zshrc
 #
 # @author Jeff Geerling
-#
+# Modified: Matt Thorson
 
 # Colors.
 unset LSCOLORS
