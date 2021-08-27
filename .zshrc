@@ -107,7 +107,7 @@ knownrm() {
 }
 
 # Allow Composer to use almost as much RAM as Chrome.
-export COMPOSER_MEMORY_LIMIT=-1
+#export COMPOSER_MEMORY_LIMIT=-1
 
 # Ask for confirmation when 'prod' is in a command string.
 #prod_command_trap () {
