@@ -1,0 +1,4 @@
+*.DS_Store
+*.LSOverride
+Thumbs.db
+.bundle

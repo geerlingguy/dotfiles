@@ -13,7 +13,7 @@ export CLICOLOR_FORCE=1
 unsetopt nomatch
 
 # Nicer prompt.
-export PS1=$'\n'"%F{green} %*%F{yellow} %3~ %F{white}"$'\n'"$ "
+export PS1=$'\n'"%F{green} %*%F %3~ %F{white}"$'\n'"$ "
 
 # Enable plugins.
 plugins=(git brew history kubectl history-substring-search)
@@ -107,7 +107,7 @@ knownrm() {
 }
 
 # Allow Composer to use almost as much RAM as Chrome.
-export COMPOSER_MEMORY_LIMIT=-1
+#export COMPOSER_MEMORY_LIMIT=-1
 
 # Ask for confirmation when 'prod' is in a command string.
 #prod_command_trap () {
