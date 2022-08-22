@@ -125,3 +125,10 @@ export COMPOSER_MEMORY_LIMIT=-1
 #}
 #shopt -s extdebug
 #trap prod_command_trap DEBUG
+#
+
+# Source antigenrc if available.
+# See: https://antigen.sharats.me/
+if [ -r ~/.antigenrc ] ; then
+source ~/.antigenrc
+fi
