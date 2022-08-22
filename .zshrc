@@ -125,3 +125,15 @@ export COMPOSER_MEMORY_LIMIT=-1
 #}
 #shopt -s extdebug
 #trap prod_command_trap DEBUG
+#
+
+# Set LANG correctly so that Ctrl+r history search
+# does not break the cursor.
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# Source antigenrc if available.
+# See: https://antigen.sharats.me/
+if [ -r ~/.antigenrc ] ; then
+source ~/.antigenrc
+fi
