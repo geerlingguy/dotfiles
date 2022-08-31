@@ -132,6 +132,14 @@ export COMPOSER_MEMORY_LIMIT=-1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# Setup for pyenv
+export PYENV_ROOT="${HOME}/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+alias python=python3
+
+
+# Setup location for gcloud
 export CLOUDSDK_HOME=${HOME}/utils/google-cloud-sdk
 # Source antigenrc if available.
 # See: https://antigen.sharats.me/
