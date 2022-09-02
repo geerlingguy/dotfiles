@@ -1,34 +1,88 @@
 [user]
-  name = Jeff Geerling
-  email = geerlingguy@mac.com
+	name = Aaron Sterr
+	email = aaron.sterr@tsimagine.com
 [core]
-  editor = vi
-  excludesfile = ~/.gitignore
-  autocrlf = input
-[color]
-  branch = auto
-  diff = auto
-  interactive = auto
-  status = auto
-[init]
-  defaultBranch = master
-[web]
-  browser = google-chrome
-[credential]
-  helper = osxkeychain
+	editor = vi
+	autocrlf = input
+	whitespace = cr-at-eol
+[branch]
+	autosetupmerge = always
 [push]
-  default = simple
-[merge]
-  tool = kdiff3
-[difftool]
-  prompt = false
+	default = simple
+[credential]
+	helper = cache --timeout 3600
+[http]
 [alias]
-  c = commit
-  ca = commit -a
-  cm = commit -m
-  cam = commit -am
-  d = diff
-  dc = diff --cached
-  l = log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit
-[pull]
-	rebase = true
+	serve = daemon --verbose --export-all --base-path=/Users/asterr/sandbox/zeus --reuseaddr --enable=receive-pack
+        oldest-ancestor = !bash -c 'diff -u <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1' -
+	branchdiff = !bash -c \"git diff `git oldest-ancestor`.. $*\"
+	branchlog = !bash -c \"git log `git oldest-ancestor`.. $*\"
+	ignored = status --ignored
+	fall = fetch --all --prune
+[pager]
+[pager]
+	stash = false
+[merge]
+	conflictstyle = diff3
+[diff]
+	tool = opendiff
+[core]
+	excludesfile = ~/.gitignore
+	legacyheaders = false # >git 1.5
+	quotepath = false
+
+[user]
+#	name = your name
+#	email = your@name
+
+[mergetool]
+	keepBackup = true
+
+[push]
+	default = simple # [ matching | simple ]
+
+[color]
+	ui = auto
+	interactive = auto
+
+[repack]
+	usedeltabaseoffset = true # >git 1.5
+
+[alias]
+	s = status
+	a = !git add . && git status
+	au = !git add -u . && git status
+	aa = !git add . && git add -u . && git status
+	c = commit
+	cm = commit -m
+	ca = commit --amend # careful
+	ac = !git add . && git commit
+	acm = !git add . && git commit -m
+	l = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+	ll = log --stat --abbrev-commit
+	lg = log --color --graph --pretty=format:'%C(bold white)%h%Creset -%C(bold green)%d%Creset %s %C(bold green)(%cr)%Creset %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	llg = log --color --graph --pretty=format:'%C(bold white)%H %d%Creset%n%s%n%+b%C(bold blue)%an <%ae>%Creset %C(bold green)%cr (%ci)' --abbrev-commit
+	d = diff
+	master = checkout master
+	spull = svn rebase
+	spush = svn dcommit
+	alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+
+[include]	# as of 1.7.10 https://github.com/git/git/commit/9b25a0b52e09400719366f0a33d0d0da98bbf7b0
+	path = ~/.gitcinclude
+	path = .githubconfig
+	path = .gitcredential
+
+#[github]
+#	user =
+#	token =
+
+[diff]
+	# git does copy/rename *detection*. if you want it to track copies/renames:
+	# http://stackoverflow.com/questions/1043388/record-file-copy-operation-with-git
+	# renames = copies
+
+[diff "exif"]
+	textconv = exif
+[credential]
+	helper = osxkeychain
