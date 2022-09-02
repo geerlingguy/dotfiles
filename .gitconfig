@@ -67,6 +67,8 @@
 	spull = svn rebase
 	spush = svn dcommit
 	alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+  dc = diff --cached
+  fp = fetch --all --prune
 
 [include]	# as of 1.7.10 https://github.com/git/git/commit/9b25a0b52e09400719366f0a33d0d0da98bbf7b0
 	path = ~/.gitcinclude
