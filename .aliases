@@ -1,0 +1,15 @@
+# File for cli aliases
+# Sourced by ~/.zshrc
+
+# From "Useful Bits" in SRE Onboarding
+alias aks-dev="az aks get-credentials --resource-group hcc-dev-usc-shared-rg --name hcc-dev-usc-shared-aks --subscription DEV --admin"
+alias aks-qa="az aks get-credentials --resource-group hcc-qa-usc-sharedcluster-rg --name hcc-qa-usc-sharedcluster-aks-1179 --subscription QA --admin"
+alias aks-uat="az aks get-credentials --resource-group hcc-uat-usc-sharedcluster-rg --name hcc-uat-usc-sharedcluster-aks-1179 --subscription UAT --admin"
+alias aks-prod="az aks get-credentials --resource-group hcc-prod-usc-sharedcluster-rg --name hcc-prod-usc-sharedcluster-aks-1179 --subscription PROD --admin"
+
+# Git aliases.
+#alias gs='git status'
+#alias gc='git commit'
+#alias gp='git pull --rebase'
+#alias gcam='git commit -am'
+#alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
