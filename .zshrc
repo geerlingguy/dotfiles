@@ -1,8 +1,8 @@
 #
 # .zshrc
 #
-# @author Jeff Geerling
-#
+# @co-author Jeff Geerling
+# @co-author Megan Boggess
 
 # Colors.
 unset LSCOLORS
@@ -12,14 +12,11 @@ export CLICOLOR_FORCE=1
 # Don't require escaping globbing characters in zsh.
 unsetopt nomatch
 
-# Nicer prompt.
-export PS1=$'\n'"%F{green} %*%F %3~ %F{white}"$'\n'"$ "
-
 # Enable plugins.
 plugins=(git brew history kubectl history-substring-search)
 
 # Custom $PATH with extra locations.
-export PATH=$HOME/Library/Python/3.8/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/go/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$PATH
+export PATH=$HOME/Library/Python/3.11/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/go/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$PATH
 
 # Bash-style time output.
 export TIMEFMT=$'\nreal\t%*E\nuser\t%*U\nsys\t%*S'
@@ -46,11 +43,11 @@ bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
 # Git aliases.
-alias gs='git status'
-alias gc='git commit'
-alias gp='git pull --rebase'
-alias gcam='git commit -am'
-alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+#alias gs='git status'
+#alias gc='git commit'
+#alias gp='git pull --rebase'
+#alias gcam='git commit -am'
+#alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 
 # Completions.
 autoload -Uz compinit && compinit
@@ -125,3 +122,28 @@ export COMPOSER_MEMORY_LIMIT=-1
 #}
 #shopt -s extdebug
 #trap prod_command_trap DEBUG
+
+# Nicer prompt w/ git branch info
+# Autoload zsh add-zsh-hook and vcs_info
+autoload -Uz add-zsh-hook vcs_info
+
+# Enable substitution in the prompt
+setopt prompt_subst 
+
+# Run vcs_info just before a prompt is displayed (precmd)
+# precmd() { vcs_info }
+add-zsh-hook precmd vcs_info
+
+# Add ${vcs_info_msg} info to the prompt
+#PROMPT='%F{white}%*%f %F{white}%~%f %F{green}${vcs_info_msg_0_}%f$ '
+PROMPT='%F{white}%*%f %F{white}%~%f %F{green}${vcs_info_msg_0_}%f$ '
+
+# Enable checking for (un)staged changes, enabling use of %u and %c
+zstyle ':vcs_info:*' check-for-changes true
+# Set custom strings for an unstaged vcs repo changes (*) and staged changes (+)
+zstyle ':vcs_info:*' unstagedstr ' *'
+zstyle ':vcs_info:*' stagedstr ' +'
+# Set the format of the git information for vcs_info
+zstyle ':vcs_info:git:*' formats '(%b%u%c)'
+zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
+
