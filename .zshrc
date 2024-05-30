@@ -15,6 +15,7 @@ alias backup-ssh="zip -er /Volumes/Ryan/Home\ Network\ Things/ssh_dir_personal_m
 alias pidate="ansible-playbook -i ~/Developer/ansible/playbooks/inventory.cfg -u pi ~/Developer/ansible/playbooks/system-base-config.yml"
 alias reload="source ~/.zshrc"
 alias brewu="brew update && brew upgrade"
+alias printcert="openssl x509 -text -noout -in"
 
 # Custom functions
 function rawtidyup(){
