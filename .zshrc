@@ -7,7 +7,7 @@
 # Colors.
 unset LSCOLORS
 export CLICOLOR=1
-export CLICOLOR_FORCE=1
+# export CLICOLOR_FORCE=1 # uncomment only if absolutely necessary -- as it can cause issues with `opam install topkg`, `ocamlfind` and anywhere else shell output is captured
 
 # Don't require escaping globbing characters in zsh.
 unsetopt nomatch
